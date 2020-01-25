@@ -22,7 +22,7 @@
         </p>
       </div>
       <div>
-        <h3>投票を作る！</h3>
+        <h3 class="contentstitle">投票を作ろう！</h3>
         <b-field label="投票タイトル" label-position="on-border">
           <b-input v-model="name"></b-input>
         </b-field>
@@ -32,7 +32,7 @@
       </div>
       <div>
         <div class="left-box">
-          <b-field label="候補">
+          <b-field label="候補" class="contentssubtitle">
             <b-taginput
               v-model="option"
               ellipsis
@@ -44,12 +44,13 @@
           </b-field>
         </div>
         <div class="right-box">
-          <b-field label="投票数">
+          <b-field label="投票数" class="contentssubtitle"></b-field>
+          <b-field class="linemiddle">
             <p>一人</p>
             <b-numberinput controls-position="compact" min="1" max="10"></b-numberinput>
             <p>票までOK！</p>
           </b-field>
-          <b-field label="公開日時">
+          <b-field label="公開日時" class="contentssubtitle">
             <b-datetimepicker
               v-model="openDateTime"
               placeholder="公開する日時を選んでください"
@@ -328,18 +329,31 @@ export default {
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
-  font-weight: 100;
-  font-size: 100px;
+  font-weight: 200;
+  font-size: 42px;
   color: #35495e;
   letter-spacing: 1px;
 }
 
 .subtitle {
-  font-weight: 300;
-  font-size: 42px;
+  font-weight: 100;
+  font-size: 28px;
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+.contentstitle {
+  font-weight: bold;
+  font-size: 20px;
+  word-spacing: 2px;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.contentssubtitle {
+  font-size: 18px;
+  text-align: left;
 }
 
 .links {
