@@ -1,26 +1,6 @@
 <template>
   <div class="container">
-    <div>
-      <div>
-        <!--<logo/>-->
-        <h1 class="title">minto みんなの投票</h1>
-        <b-navbar>
-          <template slot="end">
-            <b-navbar-item href="#">使い方</b-navbar-item>
-            <b-navbar-item href="#">利用規約</b-navbar-item>
-            <b-navbar-dropdown label="問い合わせ">
-              <b-navbar-item href="#">About</b-navbar-item>
-              <b-navbar-item href="#">Contact</b-navbar-item>
-            </b-navbar-dropdown>
-          </template>
-        </b-navbar>
-      </div>
-      <div>
-        <h2 class="subtitle">好きな投票を作って、みんなで決めよう！</h2>
-        <p>『minto（ミント）』は、無料で使えるツールです。
-          <br>あなたの好きな投票を作りましょう。
-        </p>
-      </div>
+    <div class="vote-create">
       <div>
         <h3 class="contentstitle">投票を作ろう！</h3>
         <b-field label="投票タイトル" label-position="on-border">
@@ -121,167 +101,55 @@
           <b-button size="is-large" type="is-success" icon-left="leaf">投票を作成！</b-button>
         </div>
       </div>
-      <div>
-        <b-field label="投票用リンク" label-position="on-border" grouped group-multiline>
-          <b-input type="text" readonly></b-input>
-          <p class="control">
-            <b-button type="is-info" @click="toast">コピー</b-button>
-          </p>
-          <share-buttons :title="title"/>
-        </b-field>
-        <b-field
-          label="重み付け1リンク"
-          label-position="on-border"
-          v-if="isSwitchedRate"
-          grouped
-          group-multiline
-        >
-          <b-input type="text" readonly></b-input>
-          <p class="control">
-            <b-button type="is-info" @click="toast">コピー</b-button>
-          </p>
-          <share-buttons :title="title"/>
-        </b-field>
-        <b-field
-          label="重み付け2リンク"
-          label-position="on-border"
-          v-if="isSwitchedRate"
-          grouped
-          group-multiline
-        >
-          <b-input type="text" readonly></b-input>
-          <p class="control">
-            <b-button type="is-info" @click="toast">コピー</b-button>
-          </p>
-          <share-buttons :title="title"/>
-        </b-field>
-      </div>
-      <div>
-        <b-field grouped group-multiline>
-          <b-field label="人気の投票">
-            <b-table
-              :data="isEmpty ? [] : rankingData"
-              :paginated="isPaginated"
-              :per-page="perPage"
-              :current-page.sync="currentPage"
-              :pagination-simple="isPaginationSimple"
-              :pagination-position="paginationPosition"
-              :default-sort-direction="defaultSortDirection"
-              :sort-icon="sortIcon"
-              :sort-icon-size="sortIconSize"
-              :bordered="isBordered"
-              :striped="isStriped"
-              :narrowed="isNarrowed"
-              :hoverable="isHoverable"
-              :loading="isLoading"
-              :focusable="isFocusable"
-              :mobile-cards="hasMobileCards"
-              default-sort="id"
-              aria-next-label="Next page"
-              aria-previous-label="Previous page"
-              aria-page-label="Page"
-              aria-current-label="Current page"
-            >
-              <template slot-scope="props">
-                <b-table-column field="id" label="勢い" width="40" sortable numeric>{{ props.row.id }}</b-table-column>
-                <b-table-column
-                  field="user.first_name"
-                  label="タイトル"
-                  sortable
-                >{{ props.row.user.first_name }}</b-table-column>
-                <b-table-column field="date" label="作成日" sortable centered>
-                  <span class="tag is-success">{{ new Date(props.row.date).toLocaleDateString() }}</span>
-                </b-table-column>
-                <b-table-column field="date" label="公開日" sortable centered>
-                  <span class="tag is-success">{{ new Date(props.row.date).toLocaleDateString() }}</span>
-                </b-table-column>
-              </template>
-              <template slot="empty">
-                <section class="section">
-                  <div class="content has-text-grey has-text-centered">
-                    <p>
-                      <b-icon icon="emoticon-sad" size="is-large"></b-icon>
-                    </p>
-                    <p>まだ情報がありません・・・</p>
-                  </div>
-                </section>
-              </template>
-            </b-table>
-          </b-field>
-          <b-field label="最近作成された投票">
-            <b-table
-              :data="isEmpty ? [] : latelyData"
-              :paginated="isPaginated"
-              :per-page="perPage"
-              :current-page.sync="currentPage"
-              :pagination-simple="isPaginationSimple"
-              :pagination-position="paginationPosition"
-              :default-sort-direction="defaultSortDirection"
-              :sort-icon="sortIcon"
-              :sort-icon-size="sortIconSize"
-              :bordered="isBordered"
-              :striped="isStriped"
-              :narrowed="isNarrowed"
-              :hoverable="isHoverable"
-              :loading="isLoading"
-              :focusable="isFocusable"
-              :mobile-cards="hasMobileCards"
-              default-sort="id"
-              aria-next-label="Next page"
-              aria-previous-label="Previous page"
-              aria-page-label="Page"
-              aria-current-label="Current page"
-            >
-              <template slot-scope="props">
-                <b-table-column field="id" label="勢い" width="40" sortable numeric>{{ props.row.id }}</b-table-column>
-                <b-table-column
-                  field="user.first_name"
-                  label="タイトル"
-                  sortable
-                >{{ props.row.user.first_name }}</b-table-column>
-                <b-table-column field="date" label="作成日" sortable centered>
-                  <span class="tag is-success">{{ new Date(props.row.date).toLocaleDateString() }}</span>
-                </b-table-column>
-                <b-table-column field="date" label="公開日" sortable centered>
-                  <span class="tag is-success">{{ new Date(props.row.date).toLocaleDateString() }}</span>
-                </b-table-column>
-              </template>
-              <template slot="empty">
-                <section class="section">
-                  <div class="content has-text-grey has-text-centered">
-                    <p>
-                      <b-icon icon="emoticon-sad" size="is-large"></b-icon>
-                    </p>
-                    <p>まだ情報がありません・・・</p>
-                  </div>
-                </section>
-              </template>
-            </b-table>
-          </b-field>
-        </b-field>
-      </div>
     </div>
+    <button class="button is-primary is-medium" @click="cardModal()">押して味噌</button>
+
+    <div class="vote-links">
+      <b-field label="投票用リンク" label-position="on-border" grouped group-multiline>
+        <b-input type="text" readonly></b-input>
+        <p class="control">
+          <b-button type="is-info" @click="toast">コピー</b-button>
+        </p>
+        <share-buttons :title="title"/>
+      </b-field>
+      <b-field
+        label="重み付け1リンク"
+        label-position="on-border"
+        v-if="isSwitchedRate"
+        grouped
+        group-multiline
+      >
+        <b-input type="text" readonly></b-input>
+        <p class="control">
+          <b-button type="is-info" @click="toast">コピー</b-button>
+        </p>
+        <share-buttons :title="title"/>
+      </b-field>
+      <b-field
+        label="重み付け2リンク"
+        label-position="on-border"
+        v-if="isSwitchedRate"
+        grouped
+        group-multiline
+      >
+        <b-input type="text" readonly></b-input>
+        <p class="control">
+          <b-button type="is-info" @click="toast">コピー</b-button>
+        </p>
+        <share-buttons :title="title"/>
+      </b-field>
+    </div>
+
+    <div class="vote-ranking"></div>
   </div>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
 import IconLink from "~/components/IconLink.vue";
 import ShareButtons from "~/components/ShareButtons";
-
-import rankingData from "~/data/sample.json";
+import ModalForm from "~/components/ModalForm";
 
 export default {
-  components: {
-    Logo,
-    IconLink,
-    ShareButtons
-  },
-  methods: {
-    toast() {
-      this.$buefy.toast.open("クリップボードにコピーしました");
-    }
-  },
   data() {
     const min = new Date();
     const max = new Date();
@@ -293,24 +161,27 @@ export default {
       minDatetime: min,
       maxDatetime: max,
       openDateTime: new Date(),
-      rankingData,
-      isEmpty: false,
-      isBordered: false,
-      isStriped: true,
-      isNarrowed: true,
-      isHoverable: true,
-      isFocusable: true,
-      isLoading: false,
-      hasMobileCards: false,
-      isPaginated: true,
-      isPaginationSimple: true,
-      paginationPosition: "bottom",
-      defaultSortDirection: "asc",
-      sortIcon: "arrow-up",
-      sortIconSize: "is-small",
-      currentPage: 1,
-      perPage: 10
+      voteTitle: "みんな大好き何パンマン？"
     };
+  },
+  components: {
+    IconLink,
+    ShareButtons,
+    ModalForm
+  },
+  methods: {
+    toast() {
+      this.$buefy.toast.open("クリップボードにコピーしました");
+    },
+    cardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ModalForm,
+        hasModalCard: false,
+        customClass: "custom-class custom-class-2",
+        trapFocus: true
+      });
+    }
   }
 };
 </script>
@@ -319,28 +190,10 @@ export default {
 .container {
   margin: 0 auto;
   min-height: 100vh;
-  display: flex;
+  display: box;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  display: block;
-  font-weight: 200;
-  font-size: 42px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 100;
-  font-size: 28px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
 }
 
 .contentstitle {
