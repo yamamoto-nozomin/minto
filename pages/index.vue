@@ -4,10 +4,10 @@
       <div>
         <h3 class="contentstitle">投票を作ろう！</h3>
         <b-field label="投票タイトル" label-position="on-border">
-          <b-input v-model="name"></b-input>
+          <b-input v-model="voteTitle"></b-input>
         </b-field>
         <b-field label="説明文" label-position="on-border">
-          <b-input maxlength="200" type="textarea"></b-input>
+          <b-input maxlength="200" type="textarea" v-model="description"></b-input>
         </b-field>
       </div>
       <div>
@@ -139,8 +139,26 @@
         <share-buttons :title="title"/>
       </b-field>
     </div>
-
     <div class="vote-ranking"></div>
+
+    <h1>firestore contents here</h1>
+    <ul>
+      <li v-for="(user, userIdx) in users" :key="userIdx">
+        <ul>
+          <li>name: {{ user.name }}</li>
+          <li>email: {{ user.email }}</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h1>I know, but this is the form!</h1>
+    <div>
+      email:
+      <input type="text" name="email" v-model="email">
+    </div>
+    <div>
+      <button @click="submit">Submit</button>
+    </div>
   </div>
 </template>
 
@@ -148,6 +166,10 @@
 import IconLink from "~/components/IconLink.vue";
 import ShareButtons from "~/components/ShareButtons";
 import ModalForm from "~/components/ModalForm";
+
+import firebase from "~/plugins/firebase";
+
+const db = firebase.firestore();
 
 export default {
   data() {
@@ -181,6 +203,19 @@ export default {
         customClass: "custom-class custom-class-2",
         trapFocus: true
       });
+    },
+    submit: function() {
+      const user = {
+        name: this.voteTitle,
+        email: this.description,
+        food: {
+          1: "lemon",
+          2: "orange",
+          3: "apple"
+        }
+      };
+      const usersRef = db.collection("users");
+      usersRef.add(user);
     }
   }
 };

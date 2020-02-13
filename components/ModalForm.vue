@@ -4,7 +4,7 @@
       <header class="modal-card-head">
         <p class="modal-card-title">{{ voteTitle }}</p>
         <div>
-          <p>開票まであと{{ openDate }}日 {{ openTime }}</p>
+          <p>開票まであと{{ openDate }}日　 {{ openTime }}</p>
         </div>
       </header>
       <section class="modal-card-body">
