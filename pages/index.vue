@@ -23,23 +23,16 @@
       <div>
         <h3 class="contentstitle">投票を作ろう！</h3>
         <b-field label="投票タイトル" label-position="on-border">
-          <b-input v-model="name"></b-input>
+          <b-input v-model="name" maxlength="100"></b-input>
         </b-field>
         <b-field label="説明文" label-position="on-border">
-          <b-input maxlength="200" type="textarea"></b-input>
+          <b-input maxlength="2000" type="textarea"></b-input>
         </b-field>
       </div>
       <div>
         <div class="left-box">
           <b-field label="候補" class="contentssubtitle">
-            <b-taginput
-              v-model="option"
-              ellipsis
-              icon="label"
-              type="is-success"
-              rounded
-              placeholder="候補を追加してください"
-            ></b-taginput>
+            <b-taginput ellipsis icon="label" type="is-success" rounded placeholder="候補を追加してください"></b-taginput>
           </b-field>
         </div>
         <div class="right-box">
@@ -119,8 +112,10 @@
           </b-field>
           <b-button size="is-large" type="is-success" icon-left="leaf">投票を作成！</b-button>
 
-          <b-button class="button is-primary" v-on:click="editTask()">Edit</b-button>
-        <b-modal :active.sync="isModalActive" has-modal-card></b-modal>
+          <b-button class="button is-primary" v-on:click="voteFor(name)">投票画面(イメージ図)</b-button>
+          <b-modal :active.sync="isModalActive">
+            <vote-modal v-bind="formProps"></vote-modal>
+          </b-modal>
         </div>
       </div>
     </div>
@@ -139,7 +134,6 @@
         grouped
         group-multiline
       >
-
         <b-input type="text" readonly></b-input>
         <p class="control">
           <b-button type="is-info" @click="toast">コピー</b-button>
@@ -168,7 +162,7 @@
 <script>
 import IconLink from "~/components/IconLink.vue";
 import ShareButtons from "~/components/ShareButtons";
-//import ModalForm from "~/components/ModalForm";
+import VoteModal from "@/components/VoteModal";
 
 export default {
   data() {
@@ -182,19 +176,25 @@ export default {
       minDatetime: min,
       maxDatetime: max,
       openDateTime: new Date(),
-      voteTitle: "みんな大好き何パンマン？",
-      isModalActive: false
+      name: "",
+      isModalActive: false,
+      formProps: {
+        name: ""
+      }
     };
   },
   components: {
     IconLink,
-    ShareButtons
+    ShareButtons,
+    "vote-modal": VoteModal
   },
+
   methods: {
     toast() {
       this.$buefy.toast.open("クリップボードにコピーしました");
     },
-    editTask() {
+    voteFor(name) {
+      this.formProps.name = name;
       this.isModalActive = true;
     }
   }
