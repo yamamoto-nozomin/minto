@@ -13,7 +13,7 @@
         </template>
       </b-navbar>
     </div>
-    <div>
+    <div class="bgimg">
       <h2 class="subtitle">好きな投票を作って、みんなで決めよう！</h2>
       <p>『minto（ミント）』は、無料で使えるツールです。
         <br>みんなで好きに投票しましょう。
@@ -218,19 +218,21 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 2px;
 }
 
 .contentstitle {
   font-weight: bold;
   font-size: 20px;
   word-spacing: 2px;
-  padding-bottom: 5px;
+  padding: 20px 0px 20px 5px;
   text-align: left;
 }
 
 .contentssubtitle {
   font-size: 18px;
   text-align: left;
+  padding-top: 20px;
 }
 
 .title {
@@ -239,19 +241,28 @@ export default {
   display: block;
   font-weight: 200;
   font-size: 42px;
-  color: #35495e;
+  color: rgb(119, 212, 82);
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 100;
   font-size: 28px;
-  color: #526488;
+  color: #84C98B;
   word-spacing: 5px;
   padding-bottom: 15px;
 }
-
 .links {
   padding-top: 15px;
+}
+
+.bgimg {
+  background-image: url("~@/assets/choice_1280.jpg");
+  width: auto;
+  height: 474px;
+}
+
+.bgimg p {
+  color: #ffffff;
 }
 </style>
