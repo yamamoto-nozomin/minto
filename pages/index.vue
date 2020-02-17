@@ -32,7 +32,14 @@
       <div>
         <div class="left-box">
           <b-field label="候補" class="contentssubtitle">
-            <b-taginput ellipsis icon="label" type="is-success" rounded placeholder="候補を追加してください"></b-taginput>
+            <b-taginput
+              v-model="options"
+              ellipsis
+              icon="label"
+              type="is-success"
+              rounded
+              placeholder="候補を追加してください"
+            ></b-taginput>
           </b-field>
         </div>
         <div class="right-box">
@@ -112,7 +119,7 @@
           </b-field>
           <b-button size="is-large" type="is-success" icon-left="leaf">投票を作成！</b-button>
 
-          <b-button class="button is-primary" v-on:click="voteFor(name)">投票画面(イメージ図)</b-button>
+          <b-button class="button is-primary" v-on:click="voteFor(name, options)">投票画面(イメージ図)</b-button>
           <b-modal :active.sync="isModalActive">
             <vote-modal v-bind="formProps"></vote-modal>
           </b-modal>
@@ -179,7 +186,8 @@ export default {
       name: "",
       isModalActive: false,
       formProps: {
-        name: ""
+        name: "",
+        options: ""
       }
     };
   },
@@ -193,8 +201,9 @@ export default {
     toast() {
       this.$buefy.toast.open("クリップボードにコピーしました");
     },
-    voteFor(name) {
+    voteFor(name, options) {
       this.formProps.name = name;
+      this.formProps.options = options;
       this.isModalActive = true;
     }
   }

@@ -21,7 +21,19 @@
       </header>
       <section class="modal-card-body">
         <b-field label="候補">
-          <b-radio v-model="radio" native-value="success" type="is-success">アンパンマン</b-radio>
+          <label v-for="option in options" :key="option.options">
+            <!--<b-radio-button
+              v-model="radio"
+              native-value="success"
+              name="voteOpt"
+              type="is-success"
+            >{{option}}</b-radio-button>-->
+            <input type="radio" name="voteOpt" v-model="radio" :value="option">
+            {{option}}
+          </label>
+        </b-field>
+        <b-field label="お名前" label-position="on-border">
+          <b-input v-model="signText" placeholder="記名してください" required></b-input>
         </b-field>
       </section>
       <footer class="modal-card-foot">
@@ -34,11 +46,13 @@
 <script>
 export default {
   props: {
-    name: ""
+    name: "",
+    options: ""
   },
   data() {
     return {
-      nameText: this.name
+      nameText: this.name,
+      option: this.options
     };
   }
 };
