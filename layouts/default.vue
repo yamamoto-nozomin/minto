@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <nuxt/>
-    <RankingBox/>
+    <nuxt />
   </div>
 </template>
 
@@ -9,8 +8,8 @@
 import RankingBox from "~/components/RankingBox";
 export default {
   components: {
-    RankingBox
-  }
+    RankingBox,
+  },
 };
 </script>
 
@@ -27,9 +26,8 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
+:before,
+:after {
   box-sizing: border-box;
   margin: 0;
 }

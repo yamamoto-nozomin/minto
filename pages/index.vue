@@ -4,19 +4,20 @@
       <h1 class="title">minto みんなの投票</h1>
       <b-navbar>
         <template slot="end">
-          <b-navbar-item href="#">使い方</b-navbar-item>
-          <b-navbar-item href="#">利用規約</b-navbar-item>
+          <b-navbar-item href="">使い方</b-navbar-item>
+          <b-navbar-item href="">利用規約</b-navbar-item>
           <b-navbar-dropdown label="問い合わせ">
-            <b-navbar-item href="#">About</b-navbar-item>
-            <b-navbar-item href="#">Contact</b-navbar-item>
+            <b-navbar-item href="">About</b-navbar-item>
+            <b-navbar-item href="">Contact</b-navbar-item>
           </b-navbar-dropdown>
         </template>
       </b-navbar>
     </div>
     <div class="bgimg">
       <h2 class="subtitle">好きな投票を作って、みんなで決めよう！</h2>
-      <p>『minto（ミント）』は、無料で使えるツールです。
-        <br>みんなで好きに投票しましょう。
+      <p>
+        『minto（ミント）』は、無料で使えるツールです。
+        <br />みんなで好きに投票しましょう。
       </p>
     </div>
     <div class="vote-create">
@@ -46,7 +47,11 @@
           <b-field label="投票数" class="contentssubtitle"></b-field>
           <b-field class="linemiddle">
             <p>一人</p>
-            <b-numberinput controls-position="compact" min="1" max="10"></b-numberinput>
+            <b-numberinput
+              controls-position="compact"
+              min="1"
+              max="10"
+            ></b-numberinput>
             <p>票までOK！</p>
           </b-field>
           <b-field label="公開日時" class="contentssubtitle">
@@ -59,7 +64,10 @@
               :max-datetime="maxDatetime"
             >
               <template slot="left">
-                <button class="button is-primary" @click="openDateTime = new Date()">
+                <button
+                  class="button is-primary"
+                  @click="openDateTime = new Date()"
+                >
                   <b-icon icon="clock"></b-icon>
                   <span>Now</span>
                 </button>
@@ -72,7 +80,11 @@
               </template>
             </b-datetimepicker>
           </b-field>
-          <b-field label="作成者メールアドレス" label-position="on-border" type="is-danger">
+          <b-field
+            label="作成者メールアドレス"
+            label-position="on-border"
+            type="is-danger"
+          >
             <b-input type="email" maxlength="100"></b-input>
           </b-field>
           <b-field>
@@ -84,15 +96,19 @@
               type="is-info"
               true-value="記名制にする"
               false-value="無記名"
-            >{{ isSwitchedSignature }}</b-switch>
+              >{{ isSwitchedSignature }}</b-switch
+            >
             <b-switch
               v-model="isSwitchedOpen"
               type="is-warning"
               true-value="一般公開する"
               false-value="一般公開しない"
-            >{{ isSwitchedOpen }}</b-switch>
+              >{{ isSwitchedOpen }}</b-switch
+            >
           </b-field>
-          <p>mintoでは単純な多数決にならないようにする為、票に重みをつけることができます。</p>
+          <p>
+            mintoでは単純な多数決にならないようにする為、票に重みをつけることができます。
+          </p>
           <b-field v-if="isSwitchedRate" grouped group-multiline>
             <b-field label="重み付け1つ目">
               <p>1票で</p>
@@ -117,9 +133,15 @@
               <p>票分！</p>
             </b-field>
           </b-field>
-          <b-button size="is-large" type="is-success" icon-left="leaf">投票を作成！</b-button>
+          <b-button size="is-large" type="is-success" icon-left="leaf"
+            >投票を作成！</b-button
+          >
 
-          <b-button class="button is-primary" v-on:click="voteFor(name, options)">投票画面(イメージ図)</b-button>
+          <b-button
+            class="button is-primary"
+            v-on:click="voteFor(name, options)"
+            >投票画面(イメージ図)</b-button
+          >
           <b-modal :active.sync="isModalActive">
             <vote-modal v-bind="formProps"></vote-modal>
           </b-modal>
@@ -127,12 +149,17 @@
       </div>
     </div>
     <div class="vote-links">
-      <b-field label="投票用リンク" label-position="on-border" grouped group-multiline>
+      <b-field
+        label="投票用リンク"
+        label-position="on-border"
+        grouped
+        group-multiline
+      >
         <b-input type="text" readonly></b-input>
         <p class="control">
           <b-button type="is-info" @click="toast">コピー</b-button>
         </p>
-        <share-buttons :title="title"/>
+        <share-buttons :title="title" />
       </b-field>
       <b-field
         label="重み付け1リンク"
@@ -145,7 +172,7 @@
         <p class="control">
           <b-button type="is-info" @click="toast">コピー</b-button>
         </p>
-        <share-buttons :title="title"/>
+        <share-buttons :title="title" />
       </b-field>
       <b-field
         label="重み付け2リンク"
@@ -158,7 +185,7 @@
         <p class="control">
           <b-button type="is-info" @click="toast">コピー</b-button>
         </p>
-        <share-buttons :title="title"/>
+        <share-buttons :title="title" />
       </b-field>
     </div>
 
@@ -167,7 +194,7 @@
 </template>
 
 <script>
-import IconLink from "~/components/IconLink.vue";
+import IconLinks from "~/components/IconLinks";
 import ShareButtons from "~/components/ShareButtons";
 import VoteModal from "@/components/VoteModal";
 
@@ -187,14 +214,14 @@ export default {
       isModalActive: false,
       formProps: {
         name: "",
-        options: ""
-      }
+        options: "",
+      },
     };
   },
   components: {
-    IconLink,
+    IconLinks,
     ShareButtons,
-    "vote-modal": VoteModal
+    "vote-modal": VoteModal,
   },
 
   methods: {
@@ -205,8 +232,8 @@ export default {
       this.formProps.name = name;
       this.formProps.options = options;
       this.isModalActive = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

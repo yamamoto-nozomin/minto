@@ -17,6 +17,12 @@
   </svg>
 </template>
 
+<script>
+export default {
+  name: "IconLinks"
+}
+</script>
+
 <style scoped>
 svg {
   height: 1em;
